@@ -16,7 +16,11 @@ The code in this repository is for an led effect lamp in the style of a roller c
                            |      AtMega2560     |
                            +---------------------+
 
-## How to build
+![Photo](photo.jpg)
+
+The power supply and the controller are in the base. The whole structure has a height of 67cm and a diameter of 30cm.
+
+## How to build the software
 
 1. run "make" in the base dir of the repo (needs avr-gcc)
 2. flash the resulting hex-file on the microcontroller (I use avrdude with an AVRISP mkII)
