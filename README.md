@@ -1,4 +1,4 @@
-# led_rollercoaster
+# led-rollercoaster
 
 The code in this repository is for an led effect lamp in the style of a roller coaster. It consists of an intertwined led strip with 300 LEDs with a length of 5 meters. The software can calculate the height of every LED via an array of height values in track.c. That makes it possible to create height-aware effects.
 
