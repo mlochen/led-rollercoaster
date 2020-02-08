@@ -26,38 +26,38 @@ static double h_max;
 
 void colorwave__init(void)
 {
-	for (uint16_t i = 0; i < LED_COUNT; i++)
-	{
-		double h = track__get_height((double)i / LED_COUNT);
-		h_min = (h < h_min) ? h : h_min;
-		h_max = (h > h_max) ? h : h_max;
-	}
+    for (uint16_t i = 0; i < LED_COUNT; i++)
+    {
+        double h = track__get_height((double)i / LED_COUNT);
+        h_min = (h < h_min) ? h : h_min;
+        h_max = (h > h_max) ? h : h_max;
+    }
 }
 
 void colorwave__update(double dt)
 {
-	static double t = 0;
-	t += 2 * dt;
-	if (t > 2 * M_PI)
-	{
-		t -= 2 * M_PI;
-	}
+    static double t = 0;
+    t += 2 * dt;
+    if (t > 2 * M_PI)
+    {
+        t -= 2 * M_PI;
+    }
 
-	double sin_t = (sin(t) + 1) / 2;
+    double sin_t = (sin(t) + 1) / 2;
 
-	/* fade out in 250ms */
-	ledstrip__sub(255 * dt * 4);
+    /* fade out in 250ms */
+    ledstrip__sub(255 * dt * 4);
 
-	for (uint16_t i = 0; i < LED_COUNT; i++)
-	{
-		double h = track__get_height((double)i / LED_COUNT);
-		double hf = (h - h_min) / (h_max - h_min);
-		double diff = ((hf - sin_t) < 0) ? -(hf - sin_t) : (hf - sin_t);
-		if (diff < 0.05f)
-		{
-			ledstrip__set_led(i, 255, 0, 0);
-		}
-	}
-	ledstrip__show();
+    for (uint16_t i = 0; i < LED_COUNT; i++)
+    {
+        double h = track__get_height((double)i / LED_COUNT);
+        double hf = (h - h_min) / (h_max - h_min);
+        double diff = ((hf - sin_t) < 0) ? -(hf - sin_t) : (hf - sin_t);
+        if (diff < 0.05f)
+        {
+            ledstrip__set_led(i, 255, 0, 0);
+        }
+    }
+    ledstrip__show();
 }
 

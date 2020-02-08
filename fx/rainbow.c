@@ -28,47 +28,47 @@ static void mcs2rgb(double d, double *r, double *g, double *b);
 
 void rainbow__init(void)
 {
-	for (uint16_t i = 0; i < LED_COUNT; i++)
-	{
-		double h = track__get_height((double)i / LED_COUNT);
-		h_min = (h < h_min) ? h : h_min;
-		h_max = (h > h_max) ? h : h_max;
-	}
+    for (uint16_t i = 0; i < LED_COUNT; i++)
+    {
+        double h = track__get_height((double)i / LED_COUNT);
+        h_min = (h < h_min) ? h : h_min;
+        h_max = (h > h_max) ? h : h_max;
+    }
 }
 
 void rainbow__update(double dt)
 {
-	static double t = 0;
-	t += dt;
-	if (t > 3.0f)
-	{
-		t -= 3.0f;
-	}
+    static double t = 0;
+    t += dt;
+    if (t > 3.0f)
+    {
+        t -= 3.0f;
+    }
 
-	for (uint16_t i = 0; i < LED_COUNT; i++)
-	{
-		double h = track__get_height((double)i / LED_COUNT);
-		double hf = (h - h_min) / (h_max - h_min);
+    for (uint16_t i = 0; i < LED_COUNT; i++)
+    {
+        double h = track__get_height((double)i / LED_COUNT);
+        double hf = (h - h_min) / (h_max - h_min);
 
-		double hc = (hf * 3) + t;
-		hc = (hc >= 3) ? (hc - 3) : hc;
+        double hc = (hf * 3) + t;
+        hc = (hc >= 3) ? (hc - 3) : hc;
 
-		static double r, g, b;
-		mcs2rgb(hc, &r, &g, &b);
-		ledstrip__set_led(i, r * 255, g * 255, b * 255);
-	}
-	ledstrip__show();
+        static double r, g, b;
+        mcs2rgb(hc, &r, &g, &b);
+        ledstrip__set_led(i, r * 255, g * 255, b * 255);
+    }
+    ledstrip__show();
 }
 
 static void mcs2rgb(double d, double *r, double *g, double *b)
 {
-	uint8_t hi = floor(d);
-	double f = d - hi;
-	double q = (1 - f);
-	switch (hi)
-	{
-		case 0: *r = f; *g = 0; *b = q; break;
-		case 1: *r = q; *g = f; *b = 0; break;
-		case 2: *r = 0; *g = q; *b = f; break;
-	}
+    uint8_t hi = floor(d);
+    double f = d - hi;
+    double q = (1 - f);
+    switch (hi)
+    {
+        case 0: *r = f; *g = 0; *b = q; break;
+        case 1: *r = q; *g = f; *b = 0; break;
+        case 2: *r = 0; *g = q; *b = f; break;
+    }
 }

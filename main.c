@@ -25,32 +25,32 @@
 
 int main()
 {
-	ledstrip__init();
+    ledstrip__init();
 
-	colorwave__init();
-	rainbow__init();
-	rollercoaster__init();
-	stars__init();
+    colorwave__init();
+    rainbow__init();
+    rollercoaster__init();
+    stars__init();
 
-	TCCR1B = (1 << CS12) | (1 << CS10);
+    TCCR1B = (1 << CS12) | (1 << CS10);
 
-	while(1)
-	{
-		static double t = 0;
-		double dt = TCNT1 / 15625.0f;
-		TCNT1 = 0;
-		t += dt;
-		if (t >= 60)
-		{
-			t = 0;
-		}
+    while(1)
+    {
+        static double t = 0;
+        double dt = TCNT1 / 15625.0f;
+        TCNT1 = 0;
+        t += dt;
+        if (t >= 60)
+        {
+            t = 0;
+        }
 
-		switch ((uint8_t)(t / 15))
-		{
-			case 0: colorwave__update(dt); break;
-			case 1: rainbow__update(dt); break;
-			case 2: rollercoaster__update(dt); break;
-			case 3: stars__update(dt); break;
-		}
-	}
+        switch ((uint8_t)(t / 15))
+        {
+            case 0: colorwave__update(dt); break;
+            case 1: rainbow__update(dt); break;
+            case 2: rollercoaster__update(dt); break;
+            case 3: stars__update(dt); break;
+        }
+    }
 }
